@@ -11,7 +11,7 @@
         <div class="input-group-prepend">
 
         </div>
-        <input type="text" class="form-control" id="txtJugA" aria-describedby="basic-addon3">
+        <input type="text" class="form-control onlyNumber" id="txtJugA" aria-describedby="basic-addon3">
     </div>
 
     <label for="basic-url">Jug Y</label>
@@ -19,7 +19,7 @@
         <div class="input-group-prepend">
 
         </div>
-        <input type="text" class="form-control" id="txtJugB" aria-describedby="basic-addon3">
+        <input type="text" class="form-control onlyNumber" id="txtJugB" aria-describedby="basic-addon3">
     </div>
 
     <label for="basic-url">Jug Z</label>
@@ -27,7 +27,7 @@
         <div class="input-group-prepend">
 
         </div>
-        <input type="text" class="form-control" id="txtJugZ" aria-describedby="basic-addon3">
+        <input type="text" class="form-control onlyNumber" id="txtJugZ" aria-describedby="basic-addon3">
     </div>
 
 </div>
@@ -218,5 +218,25 @@
             }
 
         }
+        (function ($) {
+            $.fn.inputFilter = function (inputFilter) {
+                return this.on("input keydown keyup mousedown mouseup select contextmenu drop", function () {
+                    if (inputFilter(this.value)) {
+                        this.oldValue = this.value;
+                        this.oldSelectionStart = this.selectionStart;
+                        this.oldSelectionEnd = this.selectionEnd;
+                    } else if (this.hasOwnProperty("oldValue")) {
+                        this.value = this.oldValue;
+                        this.setSelectionRange(this.oldSelectionStart, this.oldSelectionEnd);
+                    } else {
+                        this.value = "";
+                    }
+                });
+            };
+        }(jQuery));
+
+        $(".onlyNumber").inputFilter(function (value) {
+            return /^\d*$/.test(value);    // Allow digits only, using a RegExp
+        });
     </script>
 }
