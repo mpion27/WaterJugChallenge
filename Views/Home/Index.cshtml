@@ -171,6 +171,7 @@
             chart.render();
 
             for (var i = 0; i < data.length; i++) {
+                    $("#printActions").append((i+1)+") ");
                     addActionDescription(data[i].Action);
                     console.log(data[i]);
                     options.series[0].data[0].y = data[i].WaterInA;
@@ -179,8 +180,7 @@
                     chart.animations.w.config.chart.animations.speed = 0.1;
 
                     chart.update();
-                    await sleep(3000);
-
+                    await sleep(700);
                 }
             $("#printActions").append("<h4>Solved!</h4><br>");
 
