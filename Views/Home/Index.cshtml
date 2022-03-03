@@ -87,6 +87,7 @@
                     addDataToChart(data, JugA, JugB, JugZ);
                 } else {
                     $("#printActions").append("No Solution");
+                    chart.destroy();
                 }
             });
         });
